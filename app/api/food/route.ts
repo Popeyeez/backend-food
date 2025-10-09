@@ -1,5 +1,5 @@
 export async function GET() {
-  return Response.json({ message: "hello from food" });
+  return Response.json({ data: "hello from food" });
 }
 export async function POST() {
   return Response.json({ message: "hello from food post" });
