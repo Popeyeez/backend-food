@@ -1,9 +1,34 @@
+import { NextResponse } from "next/server";
+import { categories } from "./data";
+
 export async function GET() {
-  const categories = ["dishes", "main", "pizza"];
-  return Response.json({ data: "hello from food" });
+  const response = NextResponse.json({ data: categories }, { status: 200 });
+  response.headers.set("Access-Control-Allow-Origin", "*"); // Or '*' for all origins
+  response.headers.set(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  response.headers.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization"
+  );
+  return response;
 }
 export async function POST(req: Request) {
+  console.log("Category Post");
   const body = await req.json();
-  console.log(body);
-  return Response.json({ message: "hello from food post" });
+  const { newCategory } = body;
+  categories.push(newCategory);
+
+  const response = NextResponse.json({ data: categories }, { status: 200 });
+  response.headers.set("Access-Control-Allow-Origin", "*"); // Or '*' for all origins
+  response.headers.set(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  response.headers.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization"
+  );
+  return response;
 }
