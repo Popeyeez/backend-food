@@ -1,22 +1,23 @@
-import { getAllCategories } from "@/lib/services/category-services";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { Category } from "@/lib/models/Category";
+import connectDB from "@/lib/mongodb";
 
-export async function POST(req: Request) {
-  const body = await req.json();
-  const { category } = body;
+export async function POST(req: NextRequest) {
+  try {
+    await connectDB();
+    const { id } = await req.json();
 
-  const response = NextResponse.json(
-    { data: getAllCategories },
-    { status: 200 }
-  );
-  response.headers.set("Access-Control-Allow-Origin", "*"); // Or '*' for all origins
-  response.headers.set(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, OPTIONS"
-  );
-  response.headers.set(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization"
-  );
-  return response;
+    if (!id) {
+      return NextResponse.json({ message: "ID required" }, { status: 400 });
+    }
+
+    await Category.findByIdAndDelete(id);
+    return NextResponse.json({ message: "Category deleted" }, { status: 200 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { message: "Failed to delete category" },
+      { status: 500 }
+    );
+  }
 }
