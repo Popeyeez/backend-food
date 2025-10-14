@@ -1,20 +1,18 @@
-import { Food } from "../models/Food";
+import { Food } from "@/lib/models/Food";
 
-export const createFood = async (data: {
+export async function createFood(data: {
   name: string;
   price: number;
   ingredients: string;
   category: string;
-  imageUrl: string; // <-- URL
-}) => {
-  const newFood = new Food({
-    name: data.name,
-    price: data.price,
-    ingredients: data.ingredients,
-    category: data.category,
-    imageUrl: data.imageUrl,
-  });
-
+  imageUrl: string;
+}) {
+  const newFood = new Food(data);
   await newFood.save();
   return newFood;
-};
+}
+
+export async function getFoods() {
+  const foods = await Food.find();
+  return foods;
+}

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createFood } from "@/lib/services/food-service";
 import { uploadImageToCloudinary } from "@/lib/utils/uploadImage";
+import { Food } from "@/lib/models/Food";
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,14 +18,8 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    console.log("FormData:", {
-      name: formData.get("name"),
-      price: formData.get("price"),
-      ingredients: formData.get("ingredients"),
-      category: formData.get("category"),
-      image: formData.get("image"),
-    });
-    // Cloudinary руу upload
+
+    // Cloudinary upload
     const imageUrl = await uploadImageToCloudinary(image);
 
     const newFood = await createFood({
@@ -40,6 +35,19 @@ export async function POST(req: NextRequest) {
     console.error(error);
     return NextResponse.json(
       { error: "Failed to create food" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET() {
+  try {
+    const foods = await Food.find();
+    return NextResponse.json({ data: foods });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Failed to fetch foods" },
       { status: 500 }
     );
   }

@@ -5,7 +5,7 @@ const FoodSchema = new Schema({
   price: { type: Number, required: true },
   ingredients: { type: String, required: true },
   category: { type: String, required: true },
-  imageUrl: { type: String, required: true }, // Cloudinary URL
+  imageUrl: { type: String, required: true },
 });
 
 export const Food = models.Food || model("Food", FoodSchema);
