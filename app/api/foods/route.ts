@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createFood } from "@/lib/services/food-service";
 import { uploadImageToCloudinary } from "@/lib/utils/uploadImage";
 import { Food } from "@/lib/models/Food";
+import { Category } from "@/lib/models/Category";
 
 export async function POST(req: NextRequest) {
   try {
@@ -46,6 +47,10 @@ export async function GET() {
     return NextResponse.json({ data: foods });
   } catch (error) {
     console.error(error);
+
+    Category;
+    const foods = await Food.find().populate("Category");
+    console.log(foods);
     return NextResponse.json(
       { error: "Failed to fetch foods" },
       { status: 500 }
