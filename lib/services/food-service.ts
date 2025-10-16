@@ -1,18 +1,22 @@
-import { Food } from "@/lib/models/Food";
+import { Food } from "../models/Food";
+import connectDB from "../mongodb";
+import { FoodType } from "../utils/types";
 
-export async function createFood(data: {
+export const getFoods = async (): Promise<FoodType[]> => {
+  await connectDB();
+  const allFoods: FoodType[] = await Food.find({}).populate("categoryId");
+  return allFoods;
+};
+
+export const createFood = async (data: {
   name: string;
   price: number;
   ingredients: string;
-  category: string;
+  categoryId: string;
   imageUrl: string;
-}) {
+}) => {
+  await connectDB();
   const newFood = new Food(data);
   await newFood.save();
   return newFood;
-}
-
-export async function getFoods() {
-  const foods = await Food.find();
-  return foods;
-}
+};

@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { createFood } from "@/lib/services/food-service";
 import { uploadImageToCloudinary } from "@/lib/utils/uploadImage";
 import { Food } from "@/lib/models/Food";
-import { Category } from "@/lib/models/Category";
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,10 +9,10 @@ export async function POST(req: NextRequest) {
     const name = formData.get("name") as string;
     const price = Number(formData.get("price"));
     const ingredients = formData.get("ingredients") as string;
-    const category = formData.get("category") as string;
+    const categoryId = formData.get("categoryId") as string;
     const image = formData.get("image") as File;
 
-    if (!name || !price || !ingredients || !category || !image) {
+    if (!name || !price || !ingredients || !categoryId || !image) {
       return NextResponse.json(
         { error: "All fields are required" },
         { status: 400 }
@@ -27,7 +26,7 @@ export async function POST(req: NextRequest) {
       name,
       price,
       ingredients,
-      category,
+      categoryId,
       imageUrl,
     });
 
@@ -47,10 +46,6 @@ export async function GET() {
     return NextResponse.json({ data: foods });
   } catch (error) {
     console.error(error);
-
-    Category;
-    const foods = await Food.find().populate("Category");
-    console.log(foods);
     return NextResponse.json(
       { error: "Failed to fetch foods" },
       { status: 500 }

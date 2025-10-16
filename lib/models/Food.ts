@@ -1,12 +1,15 @@
 import mongoose, { Schema, model, models } from "mongoose";
-import { unique } from "next/dist/build/utils";
 
 const FoodSchema = new Schema(
   {
     name: { type: String, required: true },
     price: { type: Number, required: true },
     ingredients: { type: String, required: true },
-    category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
+    categoryId: {
+      type: Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
     imageUrl: { type: String, required: true },
   },
   {
