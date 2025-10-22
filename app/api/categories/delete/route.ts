@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { message: "Failed to delete category" },
+      { message: "Failed to delete category." },
       { status: 500 }
     );
   }
