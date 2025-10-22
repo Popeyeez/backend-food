@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createFood, getFoods } from "@/lib/services/food-service";
 import { uploadImageToCloudinary } from "@/lib/utils/uploadImage";
+import { Food } from "@/lib/models/Food";
 
 export async function POST(req: NextRequest) {
   try {
@@ -41,7 +42,7 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   try {
-    const foods = await getFoods();
+    const foods = await Food.find();
     return NextResponse.json({ data: foods });
   } catch (error) {
     console.error(error);
