@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createFood, getFoods } from "@/lib/services/food-service";
 import { uploadImageToCloudinary } from "@/lib/utils/uploadImage";
-import { Food } from "@/lib/models/Food";
 
 export async function POST(req: NextRequest) {
   try {
