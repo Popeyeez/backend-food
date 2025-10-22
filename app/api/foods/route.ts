@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   try {
-    const foods = await Food.find();
+    const foods = await getFoods();
     return NextResponse.json({ data: foods });
   } catch (error) {
     console.error(error);

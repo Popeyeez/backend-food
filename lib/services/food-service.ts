@@ -1,5 +1,4 @@
 import { Food } from "../models/Food";
-import { Category } from "../models/Category";
 import connectDB from "../mongodb";
 
 export const getFoods = async () => {
