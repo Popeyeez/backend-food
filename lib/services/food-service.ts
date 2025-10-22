@@ -4,6 +4,7 @@ import connectDB from "../mongodb";
 export const getFoods = async () => {
   await connectDB();
   const foods = await Food.find({}).populate("categoryId");
+  console.log("foods from DB:", foods);
   return foods;
 };
 
