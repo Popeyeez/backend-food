@@ -1,6 +1,7 @@
 import { Food } from "../models/Food";
 import connectDB from "../mongodb";
 import { FoodType } from "../utils/types";
+import { Category } from "../models/Category";
 
 export const getFoods = async (): Promise<FoodType[]> => {
   await connectDB();
